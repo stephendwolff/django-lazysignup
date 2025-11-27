@@ -38,3 +38,10 @@ class TestLazyUserModernization:
         from django.contrib.auth import get_user_model
         User = get_user_model()
         assert LazyUser.get_user_class() == User
+
+    def test_views_uses_gettext_lazy(self):
+        """views.py should use gettext_lazy, not ugettext_lazy."""
+        import inspect
+        import lazysignup.views as views_module
+        source = inspect.getsource(views_module)
+        assert 'ugettext_lazy' not in source, "ugettext_lazy is deprecated"
