@@ -11,3 +11,17 @@ class TestLazyUserModernization:
         init_path = Path(__file__).parent.parent / '__init__.py'
         content = init_path.read_text()
         assert 'default_app_config' not in content, "default_app_config is deprecated since Django 3.2"
+
+    def test_lazy_user_str_returns_string(self, lazy_user):
+        """LazyUser.__str__ should return a string without six decorator."""
+        lazy_user_obj = LazyUser.objects.get(user=lazy_user)
+        result = str(lazy_user_obj)
+        assert isinstance(result, str)
+        assert lazy_user.username in result
+
+    def test_lazy_user_has_no_six_dependency(self):
+        """Verify six is not imported in models module."""
+        import lazysignup.models as models_module
+        import sys
+        # After modernization, six should not be in the module's imports
+        assert 'six' not in dir(models_module), "six should be removed from models.py"

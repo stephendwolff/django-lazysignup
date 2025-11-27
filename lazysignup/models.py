@@ -4,7 +4,6 @@ import uuid
 from django.conf import settings
 from django.db import models
 from django.utils.timezone import now
-import six
 
 from lazysignup.constants import USER_AGENT_BLACKLIST
 from lazysignup.exceptions import NotLazyError
@@ -76,7 +75,6 @@ class LazyUserManager(models.Manager):
             return uuid.uuid4().hex[:max_length]
 
 
-@six.python_2_unicode_compatible
 class LazyUser(models.Model):
     user = models.OneToOneField(constants.LAZYSIGNUP_USER_MODEL, on_delete=models.CASCADE)
     created = models.DateTimeField(default=now, db_index=True)
