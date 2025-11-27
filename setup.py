@@ -25,8 +25,7 @@ tests_require = [
 
 install_requires = [
     'setuptools',
-    'Django>=2.1.2',
-    'six>=1.9'
+    'Django>=4.2',
 ]
 
 extras_require = {
@@ -52,12 +51,15 @@ setup(
     author_email='dan.fairs@gmail.com',
     keywords='django lazy signup app user',
     classifiers=[
-        "Programming Language :: Python",
-        "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Framework :: Django",
-        "Framework :: Django :: 1.10",
+        "Framework :: Django :: 4.2",
+        "Framework :: Django :: 5.0",
+        "Framework :: Django :: 5.1",
         "Development Status :: 4 - Beta",
         "License :: OSI Approved :: BSD License"
     ],

@@ -75,3 +75,10 @@ class TestLazyUserModernization:
         tests_content = tests_path.read_text()
         assert "is 'auth.User'" not in tests_content, "Use == for string comparison, not is"
         assert "is not 'auth.User'" not in tests_content, "Use != for string comparison, not is not"
+
+    def test_setup_has_no_six_dependency(self):
+        """setup.py should not list six as a dependency."""
+        from pathlib import Path
+        setup_path = Path(__file__).parent.parent.parent / 'setup.py'
+        content = setup_path.read_text()
+        assert "'six" not in content.lower(), "six should be removed from dependencies"
