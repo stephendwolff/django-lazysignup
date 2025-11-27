@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "django-lazysignup"
+dynamic = ["version"]
+description = "Lazy signup for Django"
+readme = "README.rst"
+license = {text = "BSD"}
+authors = [
+    {name = "Dan Fairs", email = "dan.fairs@gmail.com"}
+]
+keywords = ["django", "lazy", "signup", "user"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Framework :: Django",
+    "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.0",
+    "Framework :: Django :: 5.1",
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: BSD License",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "Django>=4.2",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.0",
+    "pytest-django>=4.5",
+    "coverage>=7.0",
+    "mock>=1.0.1",
+]
+docs = [
+    "Sphinx>=4.0",
+    "sphinx_rtd_theme",
+]
+
+[project.urls]
+Homepage = "https://github.com/stephendwolff/django-lazysignup"
+Repository = "https://github.com/stephendwolff/django-lazysignup"
+
+[tool.setuptools.dynamic]
+version = {attr = "lazysignup.version.__version__"}
+
+[tool.setuptools.packages.find]
+include = ["lazysignup*"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "lazysignup.tests.settings"
+python_files = ["test_*.py"]
+addopts = "-v --tb=short"
