@@ -45,3 +45,10 @@ class TestLazyUserModernization:
         import lazysignup.views as views_module
         source = inspect.getsource(views_module)
         assert 'ugettext_lazy' not in source, "ugettext_lazy is deprecated"
+
+    def test_views_does_not_use_is_ajax(self):
+        """views.py should not use request.is_ajax() (removed in Django 4.0)."""
+        import inspect
+        import lazysignup.views as views_module
+        source = inspect.getsource(views_module)
+        assert 'is_ajax()' not in source, "is_ajax() was removed in Django 4.0"
