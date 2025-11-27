@@ -1,5 +1,6 @@
 import datetime
 from django.conf import settings
+from django.utils import timezone
 
 from django.core.management.base import BaseCommand
 
@@ -18,7 +19,7 @@ class Command(BaseCommand):
             lazy_user.user.delete()
 
     def to_delete(self):
-        delete_before = datetime.datetime.now() - datetime.timedelta(
+        delete_before = timezone.now() - datetime.timedelta(
             seconds=settings.SESSION_COOKIE_AGE)
         return LazyUser.objects.filter(
             user__last_login__lt=delete_before

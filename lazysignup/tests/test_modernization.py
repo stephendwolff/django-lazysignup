@@ -82,3 +82,11 @@ class TestLazyUserModernization:
         setup_path = Path(__file__).parent.parent.parent / 'setup.py'
         content = setup_path.read_text()
         assert "'six" not in content.lower(), "six should be removed from dependencies"
+
+    def test_remove_expired_uses_timezone_aware_datetime(self):
+        """remove_expired_users should use timezone.now(), not datetime.datetime.now()."""
+        import inspect
+        from lazysignup.management.commands import remove_expired_users
+        source = inspect.getsource(remove_expired_users)
+        assert 'datetime.datetime.now()' not in source, "Use timezone.now() for timezone awareness"
+        assert 'timezone.now()' in source
