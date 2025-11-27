@@ -67,7 +67,7 @@ class LazyTestCase(TestCase):
 
     def setUp(self):
         self.request = HttpRequest()
-        SessionMiddleware().process_request(self.request)
+        SessionMiddleware(lambda r: None).process_request(self.request)
 
         # We have to save the session to cause a session key to be generated.
         self.request.session.save()
@@ -434,7 +434,7 @@ class LazyTestCase(TestCase):
         # LAZSIGNUP_CUSTOM_USER
         request = HttpRequest()
         request.user = AnonymousUser()
-        SessionMiddleware().process_request(request)
+        SessionMiddleware(lambda r: None).process_request(request)
         lazy_view(request)
         self.assertEqual(get_user_model(), type(request.user))
 

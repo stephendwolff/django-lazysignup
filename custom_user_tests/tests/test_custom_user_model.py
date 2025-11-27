@@ -16,7 +16,7 @@ class CustomUserModelTests(TestCase):
     def setUp(self):
         super(CustomUserModelTests, self).setUp()
         self.request = HttpRequest()
-        SessionMiddleware().process_request(self.request)
+        SessionMiddleware(lambda r: None).process_request(self.request)
 
         # We have to save the session to cause a session key to be generated.
         self.request.session.save()
