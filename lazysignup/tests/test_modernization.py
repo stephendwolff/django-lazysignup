@@ -52,3 +52,11 @@ class TestLazyUserModernization:
         import lazysignup.views as views_module
         source = inspect.getsource(views_module)
         assert 'is_ajax()' not in source, "is_ajax() was removed in Django 4.0"
+
+    def test_urls_use_path_or_re_path(self):
+        """URL configs should use path/re_path, not deprecated url()."""
+        import inspect
+        import lazysignup.urls as urls_module
+        source = inspect.getsource(urls_module)
+        assert 'from django.conf.urls import url' not in source
+        assert 'from django.urls import' in source
