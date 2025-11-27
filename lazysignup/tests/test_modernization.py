@@ -60,3 +60,18 @@ class TestLazyUserModernization:
         source = inspect.getsource(urls_module)
         assert 'from django.conf.urls import url' not in source
         assert 'from django.urls import' in source
+
+    def test_no_identity_comparison_for_strings(self):
+        """Test files should use == for string comparison, not 'is'."""
+        from pathlib import Path
+        # Check tests/urls.py
+        urls_path = Path(__file__).parent / 'urls.py'
+        urls_content = urls_path.read_text()
+        assert "is 'auth.User'" not in urls_content, "Use == for string comparison, not is"
+        assert "is not 'auth.User'" not in urls_content, "Use != for string comparison, not is not"
+
+        # Check tests/tests.py
+        tests_path = Path(__file__).parent / 'tests.py'
+        tests_content = tests_path.read_text()
+        assert "is 'auth.User'" not in tests_content, "Use == for string comparison, not is"
+        assert "is not 'auth.User'" not in tests_content, "Use != for string comparison, not is not"
